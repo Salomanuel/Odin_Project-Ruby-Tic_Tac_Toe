@@ -29,11 +29,23 @@ module Board
 	end
 end
 
+module Players
+	def change_player
+		@@player ||= false
+		case @@player
+		when true 	then @@player = false
+		when false 	then @@player = true
+		end
+		puts "it's #{@@player? "player 1" : "player 2"}'s turn"
+	end
+end
+
 class Tictac
 	#implement players
 	#implement score
 	#implement interface
 	include Board
+	include Players
 	def initialize
 		puts "here is the board:"
 		super
@@ -45,8 +57,9 @@ class Tictac
 		@move_count += 1
 		puts "*" * 30
 		puts "\tturn #{@move_count}"
-		if @@board[x][y] == "."
-			@@board[x][y] = "O"
+		change_player
+		if @@board[x][y] == nil
+			 @@board[x][y] = @@player ? true : false
 		else
 			puts "\nyou cannot do this move\n"
 		end

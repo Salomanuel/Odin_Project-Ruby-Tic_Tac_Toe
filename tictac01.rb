@@ -6,15 +6,24 @@ module Board
 	end
 	
 	def show_board
-		@@board.each { |j| puts j.join(" ") }
+		@@board.each do |row| 
+			row.each do |line| 
+				case line
+				when nil 		then print "."
+				when true		then print "X"
+				when false 	then print "O"
+				end
+			end
+			puts
+		end
 	end
 
 	private
 	def board_creator
-		@@board = [[" ","A","B","C"]]
-		3.times do |j|
-			row = [j+1]
-			3.times { row << "." }
+		@@board = []
+		3.times do |j|								#3 rows
+			row = []
+			3.times { row << nil }			#3 columns
 			@@board << row
 		end
 	end
@@ -26,28 +35,32 @@ class Tictac
 	#implement interface
 	include Board
 	def initialize
+		puts "here is the board:"
 		super
+		puts "let's go"
 		@move_count = 0
 	end
 
 	def move(x,y)
 		@move_count += 1
-		top_row = ("A".."C").to_a
-		puts "\nturn #{@move_count}"
-		puts "your move is #{top_row[x-1]}:#{y}"
+		puts "*" * 30
+		puts "\tturn #{@move_count}"
 		if @@board[x][y] == "."
 			@@board[x][y] = "O"
 		else
-			puts "\nyou cannot do this move\n\n"
+			puts "\nyou cannot do this move\n"
 		end
 		show_board
 	end
 
 	def score
-		puts @@board.join
 	end
+
 end
 
 uno = Tictac.new
-uno.move(2,2)
+#uno.move(2,2)
+#uno.move(2,2)
+uno.move(0,2)
+uno.move(1,2)
 uno.move(2,2)

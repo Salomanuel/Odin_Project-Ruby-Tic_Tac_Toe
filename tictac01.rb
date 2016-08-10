@@ -22,6 +22,8 @@ end
 
 class Tictac
 	#implement players
+	#implement score
+	#implement interface
 	include Board
 	def initialize
 		super
@@ -42,6 +44,7 @@ class Tictac
 	end
 
 	def score
+		puts @@board.join
 	end
 end
 

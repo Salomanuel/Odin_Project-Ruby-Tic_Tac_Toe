@@ -1,8 +1,7 @@
 module Board
-	def initialize
+	def initialize_board
 		board_creator
 		show_board
-		#@@board[2][2] = "O"	
 	end
 	
 	def show_board
@@ -27,29 +26,62 @@ module Board
 			@@board << row
 		end
 	end
+	def board
+		@@board
+	end
 end
 
 module Players
+	@@player ||= false
 	def change_player
-		@@player ||= false
 		case @@player
 		when true 	then @@player = false
 		when false 	then @@player = true
 		end
-		puts "it's #{@@player? "player 1" : "player 2"}'s turn"
+		puts "it's #{@@player ? "player 1" : "player 2"}'s turn"
+	end
+
+	def player
+		@@player
+	end
+end
+
+module TictacScore
+	def score_check
+		p1 = 0
+		p2 = 0
+
+		board.each do |row|
+			row.each do |cell| 
+				p1 = 0
+				case cell
+				when true 	then p1 += 1
+				when false	then p2 += 1
+				end
+				win if p1 >=3 or p2 >=3
+			end
+		end
+
+	end
+
+	private
+	def win
+		puts "#{player ? "player 1" : "player 2"} won!"
+		exit
 	end
 end
 
 class Tictac
-	#implement players
-	#implement score
-	#implement interface
+					#implement score
+					#implement interface
 	include Board
 	include Players
+	include TictacScore
+
 	def initialize
-		puts "here is the board:"
-		super
-		puts "let's go"
+		puts "here is the board:\n\n"
+		initialize_board
+		puts "\nlet's go\n\n"
 		@move_count = 0
 	end
 
@@ -64,16 +96,22 @@ class Tictac
 			puts "\nyou cannot do this move\n"
 		end
 		show_board
+		score_check
 	end
-
-	def score
-	end
-
 end
 
 uno = Tictac.new
 #uno.move(2,2)
 #uno.move(2,2)
-uno.move(0,2)
-uno.move(1,2)
-uno.move(2,2)
+uno.move(0,0)	#1
+uno.move(1,1)		#2
+uno.move(0,2)	#1
+uno.move(2,2)		#2
+uno.move(0,1)	#1
+=begin
+uno.move(1,1) 	#2
+uno.move(0,0)	#1
+uno.move(2,1)		#2
+uno.move(0,1)	#1
+uno.move(2,0)
+=end

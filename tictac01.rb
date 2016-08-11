@@ -53,26 +53,26 @@ module TictacScore
 									
 		reset_counts									#diagonal1
 		0.upto(2) { |j| analyzer(board[j][j])}
-		win if @p1 >=3 or @p2 >=3
+		win
 									
 		reset_counts									#diagonal2
 		arra = [0,1,2]
 		arra.each { |j| analyzer(board[j][-(j+1)]) }
-		win if @p1 >=3 or @p2 >=3
+		win
 
 		board.each_index do |x| 
 			reset_counts
 			board[x].each_index do |y| 	#horizontal
 				analyzer(board[x][y])
-				win if @p1 >=3 or @p2 >=3
+				win
 			end			
 			reset_counts
 			board[x].each_index do |y| 	#vertical
 				analyzer(board[y][x])
-				win if @p1 >=3 or @p2 >=3
+				win
 			end			
 		end
-		tie if !board.flatten.include?(nil)
+		tie
 	end
 
 
@@ -90,13 +90,17 @@ module TictacScore
 
 	private
 	def win
-		puts "#{player ? "player 1" : "player 2"} won!"
-		exit
+		if @p1 >=3 or @p2 >=3
+			puts "#{player ? "player 1" : "player 2"} won!"
+			exit
+		end
 	end
 
 	def tie
-		puts "it's a tie!"
-		exit
+		if !board.flatten.include?(nil)
+			puts "it's a tie!" 
+			exit
+		end
 	end
 end
 

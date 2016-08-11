@@ -5,9 +5,9 @@ module Board
 	end
 	
 	def show_board
-		print " ABC\n"	#horizont axis
+		print " ABC\n"		#horizont axis
 		@@board.each_with_index do |row,x| 
-			print x				#vertical axis
+			print x+1				#vertical axis
 			row.each_with_index do |line,y| 
 				case line
 				when nil 		then print "."
@@ -113,15 +113,21 @@ module TictacInterface
 	end
 
 	def send_move
-		puts "write the coordinates separated by a comma"
-		choice = gets.chomp.split(",").collect{ |j| j.to_i }
- 		self.move(choice[0],choice[1])
+		puts "write the coordinates"
+		choice = gets.chomp.split("")
+		case choice[0].downcase
+		when "a" then choice[0] = 0
+		when "b" then choice[0] = 1
+		when "c" then choice[0] = 2
+		end
+		puts "that's what I'm sending to move:"
+		puts "#{choice[0]},#{(choice[1].to_i - 1)}"
+ 		self.move((choice[1].to_i - 1), choice[0])
  	end
 end
 
 class Tictac
 					#optimize score
-					#optimize interface
 	include Board
 	include Players
 	include TictacScore

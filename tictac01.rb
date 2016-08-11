@@ -80,8 +80,7 @@ module TictacScore
 				win if @p1 >=3 or @p2 >=3
 			end			
 		end
-
-		
+		tie if !board.flatten.include?(nil)
 	end
 
 	def analyzer(cell)
@@ -94,6 +93,11 @@ module TictacScore
 	private
 	def win
 		puts "#{player ? "player 1" : "player 2"} won!"
+		exit
+	end
+
+	def tie
+		puts "it's a tie!"
 		exit
 	end
 end
@@ -111,8 +115,6 @@ module TictacInterface
 		choice = gets.chomp.split(",").collect{ |j| j.to_i }
  		self.move(choice[0],choice[1])
  	end
-
-
 end
 
 class Tictac
@@ -163,7 +165,6 @@ uno.move(1,0)
 uno.move(1,1)
 uno.move(2,2)
 uno.move(2,0)
-
 		
 uno.move(0,1)		#vertical score p2
 uno.move(0,0)
@@ -178,10 +179,6 @@ uno.move(0,1)
 uno.move(1,1)
 uno.move(0,2)
 uno.move(1,2)
-
-
-
-
 
 
 #require 'minitest/autorun'

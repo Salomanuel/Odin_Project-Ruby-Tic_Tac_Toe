@@ -48,20 +48,31 @@ end
 
 module TictacScore
 	def score_check
-		p1 = 0
-		p2 = 0
+		
 
-		board.each do |row|
-			row.each do |cell| 
-				p1 = 0
-				case cell
-				when true 	then p1 += 1
-				when false	then p2 += 1
-				end
-				win if p1 >=3 or p2 >=3
-			end
+		board.each_index do |x| 
+			@p1 = 0
+			@p2 = 0
+			board[x].each_index do |y| 
+				analyzer(board[x][y])
+				win if @p1 >=3 or @p2 >=3
+			end			
+			@p1 = 0
+			@p2 = 0
+			board[x].each_index do |y| 
+				analyzer(board[y][x])
+				win if @p1 >=3 or @p2 >=3
+			end			
 		end
 
+		
+	end
+
+	def analyzer(cell)
+		case cell
+		when true 	then @p1 += 1
+		when false	then @p2 += 1
+		end
 	end
 
 	private
@@ -100,18 +111,37 @@ class Tictac
 	end
 end
 
+
 uno = Tictac.new
-#uno.move(2,2)
-#uno.move(2,2)
-uno.move(0,0)	#1
-uno.move(1,1)		#2
-uno.move(0,2)	#1
-uno.move(2,2)		#2
-uno.move(0,1)	#1
-=begin
-uno.move(1,1) 	#2
-uno.move(0,0)	#1
-uno.move(2,1)		#2
-uno.move(0,1)	#1
+uno.move(0,0)		#diagonal score p2
+uno.move(0,2)
+uno.move(1,0)
+uno.move(1,1)
+uno.move(2,2)
 uno.move(2,0)
+
+=begin		
+uno.move(0,1)		#vertical score p2
+uno.move(0,0)
+uno.move(1,1)
+uno.move(1,0)
+uno.move(2,2)
+uno.move(2,0)
+
+uno.move(0,0)		#horizontal score
+uno.move(1,0)
+uno.move(0,1)
+uno.move(1,1)
+uno.move(0,2)
+uno.move(1,2)
+
+
+
+
+
+
+#require 'minitest/autorun'
+#require 'minitest/pride'
+#class FirstTests < Minitest::Test end
+
 =end

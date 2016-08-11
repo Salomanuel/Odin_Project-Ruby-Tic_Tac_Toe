@@ -56,9 +56,8 @@ module TictacScore
 		win if @p1 >=3 or @p2 >=3
 									
 		reset_counts									#diagonal2
-		analyzer(board[0][2])
-		analyzer(board[1][1])
-		analyzer(board[2][0])
+		arra = [0,1,2]
+		arra.each { |j| analyzer(board[j][-(j+1)]) }
 		win if @p1 >=3 or @p2 >=3
 
 		board.each_index do |x| 

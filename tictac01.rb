@@ -5,8 +5,10 @@ module Board
 	end
 	
 	def show_board
-		@@board.each do |row| 
-			row.each do |line| 
+		print " ABC\n"	#horizont axis
+		@@board.each_with_index do |row,x| 
+			print x				#vertical axis
+			row.each_with_index do |line,y| 
 				case line
 				when nil 		then print "."
 				when true		then print "X"
@@ -120,7 +122,6 @@ end
 class Tictac
 					#optimize score
 					#optimize interface
-					#implement tie
 	include Board
 	include Players
 	include TictacScore

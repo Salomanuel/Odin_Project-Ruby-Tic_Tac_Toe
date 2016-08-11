@@ -50,21 +50,16 @@ end
 
 module TictacScore
 	def score_check
-		1.times do 										#diagonal1
-			reset_counts
-			analyzer(board[0][0])
-			analyzer(board[1][1])
-			analyzer(board[2][2])
-			win if @p1 >=3 or @p2 >=3
-		end
-
-		1.times do 										#diagonal2
-			reset_counts
-			analyzer(board[0][2])
-			analyzer(board[1][1])
-			analyzer(board[2][0])
-			win if @p1 >=3 or @p2 >=3
-		end
+									
+		reset_counts									#diagonal1
+		0.upto(2) { |j| analyzer(board[j][j])}
+		win if @p1 >=3 or @p2 >=3
+									
+		reset_counts									#diagonal2
+		analyzer(board[0][2])
+		analyzer(board[1][1])
+		analyzer(board[2][0])
+		win if @p1 >=3 or @p2 >=3
 
 		board.each_index do |x| 
 			reset_counts
@@ -130,6 +125,7 @@ end
 
 class Tictac
 					#optimize score
+					#filter invalid inputs
 	include Board
 	include Players
 	include TictacScore

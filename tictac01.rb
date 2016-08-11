@@ -48,18 +48,34 @@ end
 
 module TictacScore
 	def score_check
-		
+		1.times do 										#diagonal1
+			@p1 = 0
+			@p2 = 0
+			analyzer(board[0][0])
+			analyzer(board[1][1])
+			analyzer(board[2][2])
+			win if @p1 >=3 or @p2 >=3
+		end
+
+		1.times do 										#diagonal2
+			@p1 = 0
+			@p2 = 0
+			analyzer(board[0][2])
+			analyzer(board[1][1])
+			analyzer(board[2][0])
+			win if @p1 >=3 or @p2 >=3
+		end
 
 		board.each_index do |x| 
 			@p1 = 0
 			@p2 = 0
-			board[x].each_index do |y| 
+			board[x].each_index do |y| 	#horizontal
 				analyzer(board[x][y])
 				win if @p1 >=3 or @p2 >=3
 			end			
 			@p1 = 0
 			@p2 = 0
-			board[x].each_index do |y| 
+			board[x].each_index do |y| 	#vertical
 				analyzer(board[y][x])
 				win if @p1 >=3 or @p2 >=3
 			end			

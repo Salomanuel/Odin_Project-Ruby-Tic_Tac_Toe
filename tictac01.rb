@@ -98,37 +98,65 @@ module TictacScore
 	end
 end
 
-class Tictac
-					#implement score
-					#implement interface
-	include Board
-	include Players
-	include TictacScore
-
-	def initialize
+module TictacInterface
+	def welcome
+		puts "Welcome to TicTac!"
 		puts "here is the board:\n\n"
 		initialize_board
 		puts "\nlet's go\n\n"
-		@move_count = 0
 	end
 
-	def move(x,y)
+	def send_move
+		puts "write the coordinates separated by a comma"
+		choice = gets.chomp.split(",").collect{ |j| j.to_i }
+ 		self.move(choice[0],choice[1])
+ 	end
+
+
+end
+
+class Tictac
+					#optimize score
+					#optimize interface
+					#implement tie
+	include Board
+	include Players
+	include TictacScore
+	include TictacInterface
+	def initialize
+		welcome
+		@move_count = 0
+		before_turn
+	end
+
+	def before_turn
 		@move_count += 1
 		puts "*" * 30
 		puts "\tturn #{@move_count}"
 		change_player
+		send_move
+	end
+
+	def after_turn
+		show_board
+		score_check
+		before_turn
+	end
+
+	def move(x,y)
 		if @@board[x][y] == nil
 			 @@board[x][y] = @@player ? true : false
 		else
 			puts "\nyou cannot do this move\n"
+			send_move
 		end
-		show_board
-		score_check
+		after_turn		
 	end
 end
 
 
 uno = Tictac.new
+=begin
 uno.move(0,0)		#diagonal score p2
 uno.move(0,2)
 uno.move(1,0)
@@ -136,7 +164,7 @@ uno.move(1,1)
 uno.move(2,2)
 uno.move(2,0)
 
-=begin		
+		
 uno.move(0,1)		#vertical score p2
 uno.move(0,0)
 uno.move(1,1)

@@ -1,3 +1,5 @@
+#optimize score
+#filter invalid inputs
 module Board
 	def initialize_board
 		board_creator
@@ -120,15 +122,12 @@ module TictacInterface
 		when "b" then choice[0] = 1
 		when "c" then choice[0] = 2
 		end
-		puts "that's what I'm sending to move:"
-		puts "#{choice[0]},#{(choice[1].to_i - 1)}"
  		self.move((choice[1].to_i - 1), choice[0])
  	end
 end
 
 class Tictac
-					#optimize score
-					#filter invalid inputs
+					
 	include Board
 	include Players
 	include TictacScore

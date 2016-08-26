@@ -1,5 +1,6 @@
 #optimize score
 #filter invalid inputs
+#privatize methods
 module Board
 	def initialize_board
 		board_creator
@@ -51,8 +52,7 @@ module Players
 end
 
 module TictacScore
-	def score_check
-									
+	def score_check								
 		reset_counts									#diagonal1
 		0.upto(2) { |j| analyzer(board[j][j])}
 		win

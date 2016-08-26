@@ -1,0 +1,28 @@
+rspec spec/cell_spec.rb
+
+file structure				 req?			dependencies
+TIC_TAC_TOE
+../lib
+	../tic_tac_toe
+		..player.rb					*
+		..version.rb				*
+		..board.rb					*
+		..core_extensions.rb*
+		..game.rb						*
+	..tic_tac_toe.rb			*	req ./cell.rb 
+													  	./lib/tic_tac_toe/version.rb
+															./lib/tic_tac_toe/player.rb
+															./lib/tic_tac_toe/board.rb
+															./lib/tic_tac_toe/game.rb
+													 ./lib/tic_tac_toe/core_extensions
+
+../spec 							#tests
+	..spec_helper.rb			*	req ./lib/tic_tac_toe.rb
+	..cell_spec.rb				
+	..core_extensions_spec	req ./spec/spec_helper.rb
+	..game_spec.rb
+../example
+	..example_game.rb				req ./lib/tic_tac_toe.rb
+
+..cell.rb								*
+..tic_tac_toe.gemspec
